@@ -1,35 +1,36 @@
-import Autenticacion from './auth.js';
+import Autenticacion from './auth.js'
 
 $(() => {
 
     //$("#authFB").click(() => );
 
     $("#btnRegistroEmail").click(() => {
-        const nombres = $('#nombreContactoReg').val();
-        const email = $('#emailContactoReg').val();
-        const password = $('#passwordReg').val();
-        const auth = new Autenticacion();
-        auth.crearCuentaEmailPass(email, password, nombres);
-    });
+        const nombres = $('#nombreContactoReg').val()
+        const email = $('#emailContactoReg').val()
+        const password = $('#passwordReg').val()
+        const auth = Autenticacion.getInstance()
+        auth.crearCuentaEmailPass(email, password, nombres)
+    })
 
     $("#btnInicioEmail").click(() => {
-        const email = $('#emailSesion').val();
-        const password = $('#passwordSesion').val();
-        // TODO : LLamar auth cuenta con email
-    });
+        const email = $('#emailSesion').val()
+        const password = $('#passwordSesion').val()
+        const auth = Autenticacion.getInstance()
+        auth.authEmailPass(email, password)
+    })
 
-    //$("#authGoogle").click(() => //AUTH con GOOGLE);
+    //$("#authGoogle").click(() => //AUTH con GOOGLE)
 
-    //$("#authTwitter").click(() => //AUTH con Twitter);
+    //$("#authTwitter").click(() => //AUTH con Twitter)
 
     $('#btnRegistrarse').click(() => {
-        $('#modalSesion').modal('close');
-        $('#modalRegistro').modal('open');
-    });
+        $('#modalSesion').modal('close')
+        $('#modalRegistro').modal('open')
+    })
 
     $('#btnIniciarSesion').click(() => {
-        $('#modalRegistro').modal('close');
-        $('#modalSesion').modal('open');
-    });
+        $('#modalRegistro').modal('close')
+        $('#modalSesion').modal('open')
+    })
 
 });
