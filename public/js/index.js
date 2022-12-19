@@ -1,5 +1,6 @@
 import firebaseConfig from './config/firebase-config.js'
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js'
+import Authentication from './auth/auth.js'
 
 $(() => {
   $('.tooltipped').tooltip({ delay: 50 })
@@ -38,9 +39,17 @@ $(() => {
     $('#modalSesion').modal('open')
   })
 
-  $('#avatar').click(() => {
-    //$('#avatar').attr('src', 'imagenes/usuario.png')
-    //Materialize.toast(`SignOut correcto`, 4000)
+  $('#avatar').click(async () => {
+    try {
+      const auth = Authentication.getInstance()
+      await auth.signOut()
+
+      $('#avatar').attr('src', 'imagenes/usuario.png')
+      Materialize.toast(`SignOut correcto`, 4000)
+    } catch (error) {
+      console.error(error.message)
+      Materialize.toast(`Error al realizar SignOut => ${error.message}`, 4000)
+    }
   })
 
   $('#btnTodoPost').click(() => {

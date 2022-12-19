@@ -13,6 +13,14 @@ class Autenticacion {
     return Autenticacion.instance
   }
 
+  async signOut() {
+    try {
+      await signOut(this.auth)
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+
   async authEmailPass(email, password) {
     try {
       const { user } = await signInWithEmailAndPassword(this.auth, email, password)
