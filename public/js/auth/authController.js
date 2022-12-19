@@ -19,7 +19,10 @@ $(() => {
         auth.authEmailPass(email, password)
     })
 
-    //$("#authGoogle").click(() => //AUTH con GOOGLE)
+    $("#authGoogle").click(() => {
+        const auth = Autenticacion.getInstance()
+        auth.authCuentaGoogle()
+    })
 
     //$("#authTwitter").click(() => //AUTH con Twitter)
 

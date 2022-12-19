@@ -1,4 +1,13 @@
-import { getAuth, createUserWithEmailAndPassword, updateProfile, sendEmailVerification, signOut, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  sendEmailVerification,
+  signOut,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
 
 class Autenticacion {
   constructor() {
@@ -57,10 +66,17 @@ class Autenticacion {
     }
   }
 
-  authCuentaGoogle() {
-    //$('#avatar').attr('src', result.user.photoURL)
-    //$('.modal').modal('close')
-    //Materialize.toast(`Bienvenido ${result.user.displayName} !! `, 4000)
+  async authCuentaGoogle() {
+    const provider = new GoogleAuthProvider()
+    try {
+      const { user } = await signInWithPopup(this.auth, provider)
+      $('#avatar').attr('src', user.photoURL)
+      $('.modal').modal('close')
+      Materialize.toast(`Bienvenido ${user.displayName} !! `, 4000)
+    } catch (error) {
+      console.error(error.message)
+      Materialize.toast(`Error al autenticar la cuenta: ${error.message}`, 4000)
+    }
   }
 
   authCuentaFacebook() {
