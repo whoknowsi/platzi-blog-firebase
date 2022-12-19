@@ -1,3 +1,6 @@
+import firebaseConfig from './config/firebase-config.js'
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js'
+
 $(() => {
   $('.tooltipped').tooltip({ delay: 50 })
   $('.modal').modal()
@@ -5,7 +8,7 @@ $(() => {
   // TODO: Adicionar el service worker
 
   // Init Firebase nuevamente
-  firebase.initializeApp(config);
+  initializeApp(firebaseConfig);
 
   // TODO: Registrar LLave publica de messaging
 
@@ -28,7 +31,7 @@ $(() => {
   $('#btnInicioSesion').click(() => {
     //$('#avatar').attr('src', 'imagenes/usuario.png')
     // Materialize.toast(`Error al realizar SignOut => ${error}`, 4000)
-    
+
 
     $('#emailSesion').val('')
     $('#passwordSesion').val('')
@@ -41,7 +44,7 @@ $(() => {
   })
 
   $('#btnTodoPost').click(() => {
-    $('#tituloPost').text('Posts de la Comunidad')   
+    $('#tituloPost').text('Posts de la Comunidad')
   })
 
   $('#btnMisPost').click(() => {

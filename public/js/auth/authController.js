@@ -1,4 +1,6 @@
-$(() => {    
+import Autenticacion from './auth.js';
+
+$(() => {
 
     //$("#authFB").click(() => );
 
@@ -6,7 +8,8 @@ $(() => {
         const nombres = $('#nombreContactoReg').val();
         const email = $('#emailContactoReg').val();
         const password = $('#passwordReg').val();
-        // TODO : LLamar crear cuenta con email
+        const auth = new Autenticacion();
+        auth.crearCuentaEmailPass(email, password, nombres);
     });
 
     $("#btnInicioEmail").click(() => {

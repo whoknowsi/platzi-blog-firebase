@@ -13,7 +13,6 @@
     <!--build:css css/styles.min.css -->
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <!--endbuild-->
-    <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
@@ -37,7 +36,7 @@
         </ul>
     </nav>
     <h4 id="tituloPost" class="titulo-posts">Posts de la Comunidad</h4>
-    <section class="posts" id="posts">        
+    <section class="posts" id="posts">
     </section>
     <footer class="footer" id="footer">
 
@@ -87,7 +86,8 @@
                 </div>
                 <div class="form-col2">
                     <label for="comentariosContacto">Comentarios:</label>
-                    <textarea id="comentariosContacto" placeholder="Escribe tu comentario" cols="30" rows="6" required></textarea>
+                    <textarea id="comentariosContacto" placeholder="Escribe tu comentario" cols="30" rows="6"
+                        required></textarea>
                     <input type="submit" class="waves-effect waves-light btn btnPpal" value="Enviar" />
                 </div>
             </div>
@@ -107,8 +107,8 @@
                         <span>Empieza Ahora</span>
                     </div>
                     <div class="col s12 m6 registro-formulario">
-                        <div class="input-field">                            
-                            <input id="emailSesion" type="email" required/>
+                        <div class="input-field">
+                            <input id="emailSesion" type="email" required />
                             <label for="emailSesion">E-mail:</label>
                         </div>
                         <div class="input-field">
@@ -116,19 +116,21 @@
                             <label for="passwordSesion">Password:</label>
                         </div>
                         <div class="div-btnInicioSesion">
-                            <a id="btnInicioEmail" class="btn waves-effect waves-light">Iniciar Sesión<i class="material-icons right">send</i></a>
-                        </div>           
+                            <a id="btnInicioEmail" class="btn waves-effect waves-light">Iniciar Sesión<i
+                                    class="material-icons right">send</i></a>
+                        </div>
                         <div class="lbl-ingresar-redes">
                             <span>INGRESA CON:</span>
                         </div>
-                        <div class="registro-iconos-redes">                                          
+                        <div class="registro-iconos-redes">
                             <a id="authFB" class="logo-facebook" href="#"></a>
                             <a id="authGoogle" class="logo-google" href="#"></a>
                             <a id="authTwitter" class="logo-twitter" href="#"></a>
-                        </div> 
+                        </div>
                     </div>
                     <div class="col s12 m12 div-btnRegistrarse">
-                        <a id="btnRegistrarse" class="btn waves-effect waves-light">Crear una cuenta<i class="material-icons left">account_box</i></a>                        
+                        <a id="btnRegistrarse" class="btn waves-effect waves-light">Crear una cuenta<i
+                                class="material-icons left">account_box</i></a>
                     </div>
                 </div>
             </div>
@@ -149,23 +151,25 @@
                     </div>
                     <div class="col s12 m6 registro-formulario">
                         <div class="input-field">
-                            <input id="nombreContactoReg" type="text"  maxlength="50" data-length="50" required />
+                            <input id="nombreContactoReg" type="text" maxlength="50" data-length="50" required />
                             <label for="nombreContactoReg">Nombres:</label>
                         </div>
                         <div class="input-field">
-                            <input id="emailContactoReg" type="email"  maxlength="50" data-length="50" required />
+                            <input id="emailContactoReg" type="email" maxlength="50" data-length="50" required />
                             <label for="emailContactoReg">E-mail:</label>
                         </div>
                         <div class="input-field">
-                            <input id="passwordReg" type="password"  maxlength="10" data-length="10" required />
+                            <input id="passwordReg" type="password" maxlength="10" data-length="10" required />
                             <label for="passwordReg">Password:</label>
                         </div>
                         <div class="div-btnInicioSesion">
-                            <a id="btnRegistroEmail" class="btn waves-effect waves-light">Registrarse<i class="material-icons left">account_box</i></a>
-                        </div>                        
+                            <a id="btnRegistroEmail" class="btn waves-effect waves-light">Registrarse<i
+                                    class="material-icons left">account_box</i></a>
+                        </div>
                     </div>
                     <div class="col s12 m12 div-btnRegistrarse">
-                        <a id="btnIniciarSesion" class="btn waves-effect waves-light">Iniciar Sesión<i class="material-icons right">send</i></a>
+                        <a id="btnIniciarSesion" class="btn waves-effect waves-light">Iniciar Sesión<i
+                                class="material-icons right">send</i></a>
                     </div>
                 </div>
             </div>
@@ -190,7 +194,8 @@
                             <label for="tituloNewPost">Titulo:</label>
                         </div>
                         <div class="input-field">
-                            <textarea id="descripcionNewPost" type="text"  maxlength="200" data-length="200" class="materialize-textarea" required></textarea>
+                            <textarea id="descripcionNewPost" type="text" maxlength="200" data-length="200"
+                                class="materialize-textarea" required></textarea>
                             <label for="descripcionNewPost">Descripción:</label>
                         </div>
                         <div class="input-field">
@@ -205,31 +210,33 @@
                             </div>
                         </div>
                         <div class="div-btnInicioSesion">
-                            <a id="btnRegistroPost" class="btn waves-effect waves-light">Crear Post<i class="material-icons left">create</i></a>
-                        </div>                      
+                            <a id="btnRegistroPost" class="btn waves-effect waves-light">Crear Post<i
+                                    class="material-icons left">create</i></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+<script type="module" src="./js/index.js"></script>
+<script type="module" src="./js/auth/authController.js"></script>
 
-
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<!-- <script type="module">
+    
+</script> -->
 
 <!--build:js js/main.min.js -->
-<script type="text/javascript" src="js/config/ConfigFirebase.js"></script>
-<script type="text/javascript" src="js/util/util.js"></script>
-<script type="text/javascript" src="js/post/post.js"></script>
-<script type="text/javascript" src="js/general.js"></script>
-<script type="text/javascript" src="js/auth/autenticacion.js"></script>
-<script type="text/javascript" src="js/auth/authController.js"></script>
-<script type="text/javascript" src="js/post/postController.js"></script>
+<!-- <script src="./js/util/util.js"></script>
+<script src="./js/post/post.js"></script>
+<script src="./js/general.js"></script>
+<script src="./js/auth/autenticacion.js"></script>
+<script src="./js/auth/authController.js"></script>
+<script src="./js/post/postController.js"></script> -->
 
 
 <!-- endbuild -->
