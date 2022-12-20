@@ -1,5 +1,3 @@
-import firebaseConfig from './config/firebase-config.js'
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js'
 import Authentication from './auth/auth.js'
 
 $(() => {
@@ -7,9 +5,6 @@ $(() => {
   $('.modal').modal()
 
   // TODO: Adicionar el service worker
-
-  // Init Firebase nuevamente
-  initializeApp(firebaseConfig);
 
   // TODO: Registrar LLave publica de messaging
 
@@ -21,27 +16,39 @@ $(() => {
 
   // TODO: Listening real time
 
-  // TODO: Firebase observador del cambio de estado
-  //$('#btnInicioSesion').text('Salir')
-  //$('#avatar').attr('src', user.photoURL)
-  //$('#avatar').attr('src', 'imagenes/usuario_auth.png')
-  //$('#btnInicioSesion').text('Iniciar Sesión')
-  //$('#avatar').attr('src', 'imagenes/usuario.png')
+  const auth = Authentication.getInstance()
 
-  // TODO: Evento boton inicio sesion
-  $('#btnInicioSesion').click(() => {
-    //$('#avatar').attr('src', 'imagenes/usuario.png')
-    // Materialize.toast(`Error al realizar SignOut => ${error}`, 4000)
+  auth.handleOnAuthStateChanged((user) => {
+    if (user) {
+      $('#btnInicioSesion').text('Salir')
+      if (user.photoURL) {
+        $('#avatar').attr('src', user.photoURL)
+      } else {
+        $('#avatar').attr('src', 'imagenes/usuario_auth.png')
+      }
+    } else {
+      $('#btnInicioSesion').text('Iniciar Sesión')
+      $('#avatar').attr('src', 'imagenes/usuario.png')
+    }
+  })
 
+  $('#btnInicioSesion').click(async () => {
+    const user = auth.getCurrentUser()
+    if (user) {
+      await auth.signOut()
+      $('#btnInicioSesion').text('Iniciar Sesión')
+      $('#avatar').attr('src', 'imagenes/usuario.png')
+      Materialize.toast(`SignOut correcto`, 4000)
+    } else {
+      $('#modalSesion').modal('open')
+    }
 
     $('#emailSesion').val('')
     $('#passwordSesion').val('')
-    $('#modalSesion').modal('open')
   })
 
   $('#avatar').click(async () => {
     try {
-      const auth = Authentication.getInstance()
       await auth.signOut()
 
       $('#avatar').attr('src', 'imagenes/usuario.png')

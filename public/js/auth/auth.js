@@ -1,3 +1,4 @@
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js'
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -11,8 +12,11 @@ import {
   signInWithPopup,
 } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
 
+import firebaseConfig from '../config/firebase-config.js'
+
 class Autenticacion {
   constructor() {
+    initializeApp(firebaseConfig)
     this.auth = getAuth()
   }
 
@@ -30,6 +34,14 @@ class Autenticacion {
     } catch (error) {
       throw new Error(error)
     }
+  }
+
+  getCurrentUser() {
+    return this.auth.currentUser
+  }
+
+  handleOnAuthStateChanged(callback) {
+    this.auth.onAuthStateChanged(callback)
   }
 
   async authEmailPass(email, password) {
