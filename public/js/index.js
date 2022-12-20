@@ -68,7 +68,14 @@ $(() => {
   })
 
   $('#btnMisPost').click(() => {
-    //$('#tituloPost').text('Mis Posts')
-    //Materialize.toast(`Debes estar autenticado para ver tus posts`, 4000)    
+
+    const user = auth.getCurrentUser()
+    if (!user) {
+      Materialize.toast(`Debes estar autenticado para ver tus posts`, 4000)
+      return
+    }
+
+    $('#tituloPost').text('Mis Posts')
+    post.consultarPostxUsuario(user.email)
   })
 })

@@ -1,4 +1,4 @@
-import { collection, addDoc, Timestamp, onSnapshot } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
+import { collection, addDoc, Timestamp, onSnapshot, where, query } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
 import FirebaseDB from '../db/firebase-db.js'
 import Utilidad from '../util/util.js'
 
@@ -33,7 +33,6 @@ class Post {
 
     consultarTodosPost() {
         const unsubscribe = onSnapshot(collection(this.db, 'posts'), (querySnapshot) => {
-            console.log(querySnapshot)
             $('#posts').html('')
             if (querySnapshot.empty) {
                 $('#posts').html(this.obtenerTemplatePostVacio())
@@ -55,7 +54,26 @@ class Post {
     }
 
     consultarPostxUsuario(emailUser) {
-
+        const q = query(collection(this.db, 'posts'), where('author', '==', emailUser))
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            $('#posts').html('')
+            if (querySnapshot.empty) {
+                $('#posts').html(this.obtenerTemplatePostVacio())
+                return
+            }
+            querySnapshot.forEach((doc) => {
+                const { author, titulo, descripcion, videoLink, imagenLink, fecha } = doc.data()
+                const postHtml = this.obtenerPostTemplate(
+                    author,
+                    titulo,
+                    descripcion,
+                    videoLink,
+                    imagenLink,
+                    Utilidad.obtenerFecha(fecha.toDate())
+                )
+                $('#posts').append(postHtml)
+            })
+        })
     }
 
     obtenerTemplatePostVacio() {
