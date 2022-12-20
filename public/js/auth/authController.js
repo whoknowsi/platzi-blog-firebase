@@ -27,7 +27,10 @@ $(() => {
         auth.authCuentaFacebook()
     })
 
-    //$("#authTwitter").click(() => //AUTH con Twitter)
+    $("#authTwitter").click(() => {
+        const auth = Autenticacion.getInstance()
+        auth.authCuentaTwitter()
+    })
 
     $('#btnRegistrarse').click(() => {
         $('#modalSesion').modal('close')

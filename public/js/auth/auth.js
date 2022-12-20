@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   FacebookAuthProvider,
+  TwitterAuthProvider,
   signInWithPopup,
 } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
 
@@ -93,8 +94,17 @@ class Autenticacion {
     }
   }
 
-  authTwitter() {
-    // TODO: Crear auth con twitter
+  async authCuentaTwitter() {
+    const provider = new TwitterAuthProvider()
+    try {
+      const { user } = await signInWithPopup(this.auth, provider)
+      $('#avatar').attr('src', user.photoURL)
+      $('.modal').modal('close')
+      Materialize.toast(`Bienvenido ${user.displayName} !! `, 4000)
+    } catch (error) {
+      console.error(error.message)
+      Materialize.toast(`Error al autenticar la cuenta: ${error.message}`, 4000)
+    }
   }
 }
 
