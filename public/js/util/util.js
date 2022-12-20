@@ -1,5 +1,5 @@
 class Utilidad {
-  static obtenerFecha (timeStamp) {    
+  static obtenerFecha(timeStamp) {
     const d = new Date(timeStamp)
     let month = '' + (d.getMonth() + 1)
     let day = '' + d.getDate()
@@ -11,3 +11,5 @@ class Utilidad {
     return [day, month, year].join('/')
   }
 }
+
+export default Utilidad

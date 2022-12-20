@@ -1,4 +1,5 @@
 import Authentication from './auth/auth.js'
+import Post from './post/post.js'
 
 $(() => {
   $('.tooltipped').tooltip({ delay: 50 })
@@ -14,7 +15,9 @@ $(() => {
 
   // TODO: Recibir las notificaciones cuando el usuario esta background
 
-  // TODO: Listening real time
+  // Listening real time
+  const post = Post.getInstance()
+  post.consultarTodosPost()
 
   const auth = Authentication.getInstance()
 
@@ -61,6 +64,7 @@ $(() => {
 
   $('#btnTodoPost').click(() => {
     $('#tituloPost').text('Posts de la Comunidad')
+    post.consultarTodosPost()
   })
 
   $('#btnMisPost').click(() => {
