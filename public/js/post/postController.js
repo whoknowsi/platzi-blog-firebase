@@ -1,3 +1,6 @@
+import Post from './post.js'
+import Authentication from '../auth/auth.js'
+
 $(() => {
   $('#btnModalPost').click(() => {
     $('#tituloNewPost').val('')
@@ -10,16 +13,18 @@ $(() => {
     // TODO: Validar que el usuario esta autenticado
 
     // Materialize.toast(`Para crear el post debes estar autenticado`, 4000)
-
     $('#modalPost').modal('open')
   })
 
-  $('#btnRegistroPost').click(() => {
-    const post = new Post()
+  $('#btnRegistroPost').click(async () => {
+    const post = Post.getInstance()
+    const auth = Authentication.getInstance()
+    const user = auth.getCurrentUser()
 
-    // TODO: Validar que el usuario esta autenticado
-
-    // Materialize.toast(`Para crear el post debes estar autenticado`, 4000)
+    if (!user) {
+      Materialize.toast(`Para crear el post debes estar autenticado`, 4000)
+      return
+    }
 
     const titulo = $('#tituloNewPost').val()
     const descripcion = $('#descripcionNewPost').val()
@@ -28,8 +33,8 @@ $(() => {
       ? null
       : sessionStorage.getItem('imgNewPost')
 
-    post
-      .crearPost(
+    try {
+      await post.crearPost(
         user.uid,
         user.email,
         titulo,
@@ -37,13 +42,12 @@ $(() => {
         imagenLink,
         videoLink
       )
-      .then(resp => {
-        Materialize.toast(`Post creado correctamente`, 4000)
-        $('.modal').modal('close')
-      })
-      .catch(err => {
-        Materialize.toast(`Error => ${err}`, 4000)
-      })
+
+      Materialize.toast(`Post creado correctamente`, 4000)
+      $('.modal').modal('close')
+    } catch (error) {
+      Materialize.toast(`Error => ${err}`, 4000)
+    }
   })
 
   $('#btnUploadFile').on('change', e => {
@@ -54,6 +58,6 @@ $(() => {
     const file = e.target.files[0]
 
     // TODO: Referencia al storage
-    
+
   })
 })
