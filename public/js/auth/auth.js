@@ -11,13 +11,14 @@ import {
   FacebookAuthProvider,
   TwitterAuthProvider,
   signInWithPopup,
+  onAuthStateChanged,
 } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
 
 import firebaseConfig from '../config/firebase-config.js'
 
 class Autenticacion {
   constructor() {
-    initializeApp(firebaseConfig)
+    this.app = initializeApp(firebaseConfig)
     this.auth = getAuth()
   }
 
@@ -42,7 +43,7 @@ class Autenticacion {
   }
 
   handleOnAuthStateChanged(callback) {
-    this.auth.onAuthStateChanged(callback)
+    onAuthStateChanged(this.auth, callback)
   }
 
   async handlePasswordReset(email) {
