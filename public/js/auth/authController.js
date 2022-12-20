@@ -2,8 +2,6 @@ import Autenticacion from './auth.js'
 
 $(() => {
 
-    //$("#authFB").click(() => );
-
     $("#btnRegistroEmail").click(() => {
         const nombres = $('#nombreContactoReg').val()
         const email = $('#emailContactoReg').val()
@@ -22,6 +20,11 @@ $(() => {
     $("#authGoogle").click(() => {
         const auth = Autenticacion.getInstance()
         auth.authCuentaGoogle()
+    })
+
+    $("#authFB").click(() => {
+        const auth = Autenticacion.getInstance()
+        auth.authCuentaFacebook()
     })
 
     //$("#authTwitter").click(() => //AUTH con Twitter)
