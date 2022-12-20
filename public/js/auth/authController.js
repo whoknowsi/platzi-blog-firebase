@@ -1,6 +1,7 @@
 import Autenticacion from './auth.js'
 
 $(() => {
+    const auth = Autenticacion.getInstance()
 
     $("#btnRegistroEmail").click(() => {
         const nombres = $('#nombreContactoReg').val()
@@ -13,22 +14,18 @@ $(() => {
     $("#btnInicioEmail").click(() => {
         const email = $('#emailSesion').val()
         const password = $('#passwordSesion').val()
-        const auth = Autenticacion.getInstance()
         auth.authEmailPass(email, password)
     })
 
     $("#authGoogle").click(() => {
-        const auth = Autenticacion.getInstance()
         auth.authCuentaGoogle()
     })
 
     $("#authFB").click(() => {
-        const auth = Autenticacion.getInstance()
         auth.authCuentaFacebook()
     })
 
     $("#authTwitter").click(() => {
-        const auth = Autenticacion.getInstance()
         auth.authCuentaTwitter()
     })
 
@@ -40,6 +37,11 @@ $(() => {
     $('#btnIniciarSesion').click(() => {
         $('#modalRegistro').modal('close')
         $('#modalSesion').modal('open')
+    })
+
+    $('#btnOlvidoPassword').click(async () => {
+        const email = $('#emailSesion').val()
+        auth.handlePasswordReset(email)
     })
 
 });

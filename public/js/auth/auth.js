@@ -6,6 +6,7 @@ import {
   sendEmailVerification,
   signOut,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
   GoogleAuthProvider,
   FacebookAuthProvider,
   TwitterAuthProvider,
@@ -42,6 +43,16 @@ class Autenticacion {
 
   handleOnAuthStateChanged(callback) {
     this.auth.onAuthStateChanged(callback)
+  }
+
+  async handlePasswordReset(email) {
+    try {
+      await sendPasswordResetEmail(this.auth, email)
+      Materialize.toast(`Se ha enviado un correo a ${email} para restablecer la contraseña`, 4000)
+    } catch (error) {
+      console.error(error.message)
+      Materialize.toast(`Error al enviar el correo: ${error.message}`, 4000)
+    }
   }
 
   async authEmailPass(email, password) {
