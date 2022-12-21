@@ -42,7 +42,7 @@ $(() => {
     try {
       await post.crearPost(
         user.uid,
-        user.email,
+        user.displayName,
         titulo,
         descripcion,
         imagenLink,

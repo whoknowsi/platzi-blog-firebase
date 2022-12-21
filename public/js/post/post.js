@@ -19,11 +19,11 @@ class Post {
         return Post.instance
     }
 
-    async crearPost(uid, emailUser, titulo, descripcion, imagenLink, videoLink) {
+    async crearPost(uid, author, titulo, descripcion, imagenLink, videoLink) {
         try {
             const docRef = await addDoc(collection(this.db, 'posts'), {
                 uid,
-                author: emailUser,
+                author,
                 titulo,
                 descripcion,
                 imagenLink,
@@ -58,8 +58,8 @@ class Post {
         })
     }
 
-    consultarPostxUsuario(emailUser) {
-        const q = query(collection(this.db, 'posts'), where('author', '==', emailUser), orderBy('fecha', 'desc'))
+    consultarPostxUsuario(uid) {
+        const q = query(collection(this.db, 'posts'), where('uid', '==', uid), orderBy('fecha', 'desc'))
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             $('#posts').html('')
             if (querySnapshot.empty) {

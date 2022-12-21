@@ -98,6 +98,6 @@ $(() => {
     }
 
     $('#tituloPost').text('Mis Posts')
-    post.consultarPostxUsuario(user.email)
+    post.consultarPostxUsuario(user.uid)
   })
 })
