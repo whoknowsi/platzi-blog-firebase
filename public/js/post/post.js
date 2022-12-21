@@ -1,5 +1,5 @@
-import { collection, addDoc, Timestamp, onSnapshot, where, query, orderBy } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
-import { ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js"
+import { collection, addDoc, Timestamp, onSnapshot, where, query, orderBy } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-firestore.js'
+import { ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-storage.js"
 import FirebaseDB from '../db/firebase-db.js'
 import Storage from '../storage/storage.js'
 import Utilidad from '../util/util.js'

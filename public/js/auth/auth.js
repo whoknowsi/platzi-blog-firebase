@@ -1,4 +1,4 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js'
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js'
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -12,7 +12,7 @@ import {
   TwitterAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
-} from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
+} from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-auth.js'
 
 import firebaseConfig from '../config/firebase-config.js'
 

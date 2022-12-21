@@ -1,4 +1,4 @@
-import { getStorage } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js"
+import { getStorage } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-storage.js"
 import Autenticacion from '../auth/auth.js'
 
 class Storage {

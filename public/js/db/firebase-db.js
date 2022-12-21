@@ -1,4 +1,4 @@
-import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
+import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-firestore.js'
 import Autenticacion from '../auth/auth.js'
 
 class FirebaseDB {

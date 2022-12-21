@@ -1,25 +1,47 @@
 import Authentication from './auth/auth.js'
 import Post from './post/post.js'
+import { getMessaging, getToken, onMessage } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-messaging.js'
+import FirebaseDB from './db/firebase-db.js'
+import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-firestore.js'
 
 $(() => {
   $('.tooltipped').tooltip({ delay: 50 })
   $('.modal').modal()
 
-  // TODO: Adicionar el service worker
 
-  // TODO: Registrar LLave publica de messaging
-
-  // TODO: Solicitar permisos para las notificaciones
-
-  // TODO: Recibir las notificaciones cuando el usuario esta foreground
-
-  // TODO: Recibir las notificaciones cuando el usuario esta background
-
-  // Listening real time
   const post = Post.getInstance()
   post.consultarTodosPost()
 
   const auth = Authentication.getInstance()
+  const firebaseDB = FirebaseDB.getInstance()
+
+  Notification.requestPermission((permission) => {
+    if (permission === 'granted') {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('../firebase-messaging-sw.js')
+          .then((registration) => {
+            const messaging = getMessaging(auth.app)
+
+            getToken(messaging, { vapidKey: 'BGD1-FoXWN9Zc06Q7CFeCEzbWdSyD3_teWwkEBJ2xu5zTsc9GmQPCmXr_H0wYeThEQwfBPAuOJr_vPx1QUfQjnM' })
+              .then((token) => {
+                const db = firebaseDB.db
+                try {
+                  setDoc(doc(db, 'tokens', token), {
+                    token,
+                  })
+                } catch (error) {
+                  console.error('Error adding document: ', error.message)
+                }
+              })
+
+            onMessage(messaging, (payload) => {
+              console.log(payload)
+              Materialize.toast(`${payload.notification.title}: ${payload.notification.body}`, 4000)
+            })
+          })
+      }
+    }
+  })
 
   auth.handleOnAuthStateChanged((user) => {
     if (user) {
