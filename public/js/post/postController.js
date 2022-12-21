@@ -13,9 +13,12 @@ $(() => {
     $('.determinate').attr('style', `width: 0%`)
     sessionStorage.setItem('imageLink', null)
 
-    // TODO: Validar que el usuario esta autenticado
+    const user = auth.getCurrentUser()
+    if (!user) {
+      Materialize.toast(`Para crear el post debes estar autenticado`, 4000)
+      return
+    }
 
-    // Materialize.toast(`Para crear el post debes estar autenticado`, 4000)
     $('#modalPost').modal('open')
   })
 
