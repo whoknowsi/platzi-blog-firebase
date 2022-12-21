@@ -113,7 +113,7 @@ class Post {
             <a class="post-estrellita-vacia" href="*"></a>
         </div>
         <div class="post-video">
-            <iframe type="text/html" width="500" height="385" src='https://www.youtube.com/embed/bTSWzddyL7E?ecver=2'
+            <iframe type="text/html" width="500" height="385" src=''
                 frameborder="0"></iframe>
             </figure>
         </div>

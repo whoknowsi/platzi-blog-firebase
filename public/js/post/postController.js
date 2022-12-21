@@ -49,6 +49,9 @@ $(() => {
         videoLink
       )
 
+      $('#tituloPost').text('Posts de la Comunidad')
+      post.consultarTodosPost()
+
       Materialize.toast(`Post creado correctamente`, 4000)
       $('.modal').modal('close')
     } catch (error) {
