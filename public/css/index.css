@@ -328,6 +328,7 @@ body {
 .posts .post .post-video .post-imagen-video {
   width: 100%;
   height: 300px;
+  object-fit: cover;
 }
 
 .posts .post .post-descripcion {

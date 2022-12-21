@@ -2,13 +2,16 @@ import Post from './post.js'
 import Authentication from '../auth/auth.js'
 
 $(() => {
+  const post = Post.getInstance()
+  const auth = Authentication.getInstance()
+
   $('#btnModalPost').click(() => {
     $('#tituloNewPost').val('')
     $('#descripcionNewPost').val('')
     $('#linkVideoNewPost').val('')
     $('#btnUploadFile').val('')
     $('.determinate').attr('style', `width: 0%`)
-    sessionStorage.setItem('imgNewPost', null)
+    sessionStorage.setItem('imageLink', null)
 
     // TODO: Validar que el usuario esta autenticado
 
@@ -17,8 +20,6 @@ $(() => {
   })
 
   $('#btnRegistroPost').click(async () => {
-    const post = Post.getInstance()
-    const auth = Authentication.getInstance()
     const user = auth.getCurrentUser()
 
     if (!user) {
@@ -29,9 +30,11 @@ $(() => {
     const titulo = $('#tituloNewPost').val()
     const descripcion = $('#descripcionNewPost').val()
     const videoLink = $('#linkVideoNewPost').val()
-    const imagenLink = sessionStorage.getItem('imgNewPost') == 'null'
+    const imagenLink = sessionStorage.getItem('imageLink') == 'null'
       ? null
-      : sessionStorage.getItem('imgNewPost')
+      : sessionStorage.getItem('imageLink')
+
+    sessionStorage.setItem('imageLink', null)
 
     try {
       await post.crearPost(
@@ -51,13 +54,12 @@ $(() => {
   })
 
   $('#btnUploadFile').on('change', e => {
-    // TODO: Validar que el usuario esta autenticado
-
-    // Materialize.toast(`Para crear el post debes estar autenticado`, 4000)
-
+    const user = auth.getCurrentUser()
+    if (!user) {
+      Materialize.toast(`Para crear el post debes estar autenticado`, 4000)
+      return
+    }
     const file = e.target.files[0]
-
-    // TODO: Referencia al storage
-
+    post.subirImagenPost(file, user.uid)
   })
 })

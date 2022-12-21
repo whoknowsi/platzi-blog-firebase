@@ -1,11 +1,15 @@
-import { collection, addDoc, Timestamp, onSnapshot, where, query } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
+import { collection, addDoc, Timestamp, onSnapshot, where, query, orderBy } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js'
+import { ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js"
 import FirebaseDB from '../db/firebase-db.js'
+import Storage from '../storage/storage.js'
 import Utilidad from '../util/util.js'
 
 class Post {
     constructor() {
         const firebaseDb = FirebaseDB.getInstance()
         this.db = firebaseDb.db
+        const firebaseStorage = Storage.getInstance()
+        this.storage = firebaseStorage.storage
     }
 
     static getInstance() {
@@ -32,7 +36,8 @@ class Post {
     }
 
     consultarTodosPost() {
-        const unsubscribe = onSnapshot(collection(this.db, 'posts'), (querySnapshot) => {
+        const q = query(collection(this.db, 'posts'), orderBy('fecha', 'desc'))
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
             $('#posts').html('')
             if (querySnapshot.empty) {
                 $('#posts').html(this.obtenerTemplatePostVacio())
@@ -54,7 +59,7 @@ class Post {
     }
 
     consultarPostxUsuario(emailUser) {
-        const q = query(collection(this.db, 'posts'), where('author', '==', emailUser))
+        const q = query(collection(this.db, 'posts'), where('author', '==', emailUser), orderBy('fecha', 'desc'))
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             $('#posts').html('')
             if (querySnapshot.empty) {
@@ -74,6 +79,25 @@ class Post {
                 $('#posts').append(postHtml)
             })
         })
+    }
+
+    async subirImagenPost(file, uid) {
+        const storageRef = ref(this.storage, `posts/${uid}/${file.name}`)
+        const task = uploadBytesResumable(storageRef, file)
+        task.on('state_changed',
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                $('.determinate').attr('style', 'width:' + progress + '%')
+            },
+            (error) => {
+                Materialize.toast(`Error al subir la imagen: ${error.message}`, 4000)
+                console.error(error)
+            },
+            async () => {
+                const url = await getDownloadURL(task.snapshot.ref)
+                sessionStorage.setItem('imageLink', url)
+            }
+        )
     }
 
     obtenerTemplatePostVacio() {
